@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPA Master - Công Cụ Tính Điểm GPA Học Kỳ Chuyên Nghiệp</title>
+    <meta name="description" content="Trang web tính điểm GPA tích lũy và học kỳ trực quan, hỗ trợ quy đổi thang điểm 4 và điểm chữ chuẩn quy chế đào tạo đại học Việt Nam.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+
+<div class="app-container">
+    <!-- Header -->
+    <header>
+        <div class="logo-section">
+            <div class="logo-icon">
+                <!-- SVG Graduation Cap Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/><path d="M21.5 12v6"/></svg>
+            </div>
+            <div class="logo-title">
+                <h1>GPA Master</h1>
+                <p>Công cụ quản lý & tính điểm học tập đại học</p>
+            </div>
+        </div>
+        
+        <button class="btn-toggle-theme" id="themeToggle" title="Chuyển đổi giao diện Sáng/Tối">
+            <!-- SVG Moon Icon -->
+            <svg id="themeIcon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        </button>
+    </header>
+
+    <!-- Cumulative Statistics Dashboard -->
+    <section class="dashboard-grid">
+        <!-- GPA Hệ 4 Card -->
+        <div class="dashboard-card success">
+            <div class="dashboard-card-detail">
+                <span>GPA Tích Lũy (Hệ 4)</span>
+                <h3 id="gpa4Text">0.00 <small>/ 4.0</small></h3>
+                <div class="standing-badge xuatsu" id="standingBadge">Chưa xếp loại</div>
+            </div>
+            <div class="progress-ring-container">
+                <svg class="progress-ring" width="80" height="80">
+                    <circle class="progress-ring__circle-bg" stroke-width="6" r="34" cx="40" cy="40"/>
+                    <circle id="gpa4Circle" class="progress-ring__circle" stroke="var(--success)" stroke-width="6" r="34" cx="40" cy="40"/>
+                </svg>
+                <div class="progress-ring-text" id="gpa4PctText">0%</div>
+            </div>
+        </div>
+
+        <!-- GPA Hệ 10 Card -->
+        <div class="dashboard-card warning">
+            <div class="dashboard-card-detail">
+                <span>GPA Tích Lũy (Hệ 10)</span>
+                <h3 id="gpa10Text">0.00 <small>/ 10.0</small></h3>
+                <p>Đã quy đổi trọng số học kỳ</p>
+            </div>
+            <div class="progress-ring-container">
+                <svg class="progress-ring" width="80" height="80">
+                    <circle class="progress-ring__circle-bg" stroke-width="6" r="34" cx="40" cy="40"/>
+                    <circle id="gpa10Circle" class="progress-ring__circle" stroke="var(--warning)" stroke-width="6" r="34" cx="40" cy="40"/>
+                </svg>
+                <div class="progress-ring-text" id="gpa10PctText">0%</div>
+            </div>
+        </div>
+
+        <!-- Total Credits Card -->
+        <div class="dashboard-card info">
+            <div class="dashboard-card-detail">
+                <span>Tín Chỉ Tích Lũy</span>
+                <h3 id="totalCreditsText">0 <small>tín chỉ</small></h3>
+                <p id="totalCoursesText">Hoàn thành 0 môn học</p>
+            </div>
+            <div class="dashboard-card-icon">
+                <!-- SVG Book icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/><path d="M6 14h10"/></svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- Semesters Container -->
+    <main class="semester-area" id="semesterArea">
+        <!-- Rendered dynamically by JavaScript -->
+    </main>
+
+    <!-- Page Actions -->
+    <section class="page-actions">
+        <button class="btn-primary" id="btnAddSemester">
+            <!-- SVG Plus Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+            Thêm Học Kỳ Mới
+        </button>
+        <button class="btn-outline" id="btnResetData">
+            <!-- SVG Rotate Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+            Khôi Phục Dữ Liệu Mẫu
+        </button>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 GPA Master - Thiết kế bởi Antigravity. Tất cả quyền được bảo lưu.</p>
+        <p>Quy đổi điểm dựa trên <strong>Thông tư 08/2021/TT-BGDĐT</strong> của Bộ Giáo dục & Đào tạo.</p>
+    </footer>
+</div>
+<script src="action.js"></script>
+</body>
+</html>
