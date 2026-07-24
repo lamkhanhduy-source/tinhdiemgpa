@@ -647,8 +647,11 @@
             } else if (cumGPA4 >= 2.00) {
                 standingBadge.textContent = 'Trung bình';
                 standingBadge.className = 'standing-badge trungbinh';
+            }else if (cumGPA4 >= 1.00) {
+                standingBadge.textContent = 'Yếu';
+                standingBadge.className = 'standing-badge trungbinh';
             } else {
-                standingBadge.textContent = 'Yếu / Kém';
+                standingBadge.textContent = 'Kém';
                 standingBadge.className = 'standing-badge';
                 standingBadge.style.backgroundColor = 'var(--danger-glow)';
                 standingBadge.style.color = 'var(--danger)';
