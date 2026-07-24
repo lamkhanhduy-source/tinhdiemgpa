@@ -8,21 +8,21 @@
             id: 'sem-1',
             name: 'Học kỳ 1 - Năm học 2024 - 2025',
             courses: [
-                { id: 'c-1-1', code: 'INT1306', name: 'Nhập môn Lập trình', credits: 3, weightGK: 30, weightCK: 70, gradeGK: 8.5, gradeCK: 9.0 },
-                { id: 'c-1-2', code: 'PHY1100', name: 'Vật lý đại cương A1', credits: 3, weightGK: 40, weightCK: 60, gradeGK: 7.0, gradeCK: 8.0 },
-                { id: 'c-1-3', code: 'MAT1101', name: 'Giải tích 1', credits: 4, weightGK: 30, weightCK: 70, gradeGK: 8.5, gradeCK: 9.2 },
-                { id: 'c-1-4', code: 'POL1100', name: 'Triết học Mác - Lênin', credits: 3, weightGK: 30, weightCK: 70, gradeGK: 6.0, gradeCK: 7.5 },
-                { id: 'c-1-5', code: 'ENG1101', name: 'Anh văn bổ trợ 1', credits: 2, weightGK: 50, weightCK: 50, gradeGK: 8.0, gradeCK: 8.0 }
+                { id: 'c-1-1', code: 'INT1306', name: 'Nhập môn Lập trình', credits: 3, weightGK: '', weightCK: '', gradeGK: 8.5, gradeCK: 9.0 },
+                { id: 'c-1-2', code: 'PHY1100', name: 'Vật lý đại cương A1', credits: 3, weightGK: '', weightCK: '', gradeGK: 7.0, gradeCK: 8.0 },
+                { id: 'c-1-3', code: 'MAT1101', name: 'Giải tích 1', credits: 4, weightGK: '', weightCK: '', gradeGK: 8.5, gradeCK: 9.2 },
+                { id: 'c-1-4', code: 'POL1100', name: 'Triết học Mác - Lênin', credits: 3, weightGK: '', weightCK: '', gradeGK: 6.0, gradeCK: 7.5 },
+                { id: 'c-1-5', code: 'ENG1101', name: 'Anh văn bổ trợ 1', credits: 2, weightGK: '', weightCK: '', gradeGK: 8.0, gradeCK: 8.0 }
             ]
         },
         {
             id: 'sem-2',
             name: 'Học kỳ 2 - Năm học 2024 - 2025',
             courses: [
-                { id: 'c-2-1', code: 'MAT1102', name: 'Đại số tuyến tính', credits: 3, weightGK: 30, weightCK: 70, gradeGK: 9.0, gradeCK: 8.5 },
-                { id: 'c-2-2', code: 'INT1307', name: 'Cấu trúc dữ liệu & Giải thuật', credits: 4, weightGK: 30, weightCK: 70, gradeGK: 8.0, gradeCK: 9.0 },
-                { id: 'c-2-3', code: 'INT1308', name: 'Cơ sở dữ liệu', credits: 3, weightGK: 40, weightCK: 60, gradeGK: 7.5, gradeCK: 8.0 },
-                { id: 'c-2-4', code: 'POL1101', name: 'Đường lối cách mạng ĐCSVN', credits: 3, weightGK: 30, weightCK: 70, gradeGK: 8.0, gradeCK: 7.0 }
+                { id: 'c-2-1', code: 'MAT1102', name: 'Đại số tuyến tính', credits: 3, weightGK: '', weightCK: '', gradeGK: 9.0, gradeCK: 8.5 },
+                { id: 'c-2-2', code: 'INT1307', name: 'Cấu trúc dữ liệu & Giải thuật', credits: 4, weightGK: '', weightCK: '', gradeGK: 8.0, gradeCK: 9.0 },
+                { id: 'c-2-3', code: 'INT1308', name: 'Cơ sở dữ liệu', credits: 3, weightGK: '', weightCK: '', gradeGK: 7.5, gradeCK: 8.0 },
+                { id: 'c-2-4', code: 'POL1101', name: 'Đường lối cách mạng ĐCSVN', credits: 3, weightGK: '', weightCK: '', gradeGK: 8.0, gradeCK: 7.0 }
             ]
         }
     ];
@@ -81,8 +81,8 @@
                 semesters = JSON.parse(rawData);
                 // Data migration to course-level weights
                 semesters.forEach(sem => {
-                    const semGK = sem.weightGK !== undefined ? sem.weightGK : 30;
-                    const semCK = sem.weightCK !== undefined ? sem.weightCK : 70;
+                    const semGK = sem.weightGK !== undefined ? sem.weightGK : '';
+                    const semCK = sem.weightCK !== undefined ? sem.weightCK : '';
                     sem.courses.forEach(course => {
                         if (course.weightGK === undefined) {
                             course.weightGK = semGK;
@@ -115,11 +115,8 @@
         const rounded = Math.round(score10 * 10) / 10;
         
         if (rounded >= 8.5) return { letter: 'A', scale4: '4.0', class: 'a' };
-        if (rounded >= 8.0) return { letter: 'B+', scale4: '3.5', class: 'b-plus' };
         if (rounded >= 7.0) return { letter: 'B', scale4: '3.0', class: 'b' };
-        if (rounded >= 6.5) return { letter: 'C+', scale4: '2.5', class: 'c-plus' };
         if (rounded >= 5.5) return { letter: 'C', scale4: '2.0', class: 'c' };
-        if (rounded >= 5.0) return { letter: 'D+', scale4: '1.5', class: 'd-plus' };
         if (rounded >= 4.0) return { letter: 'D', scale4: '1.0', class: 'd' };
         return { letter: 'F', scale4: '0.0', class: 'f' };
     }
@@ -128,7 +125,7 @@
         const credits = parseInt(course.credits);
         const gk = parseFloat(course.gradeGK);
         const ck = parseFloat(course.gradeCK);
-        const wGk = parseInt(course.weightGK !== undefined ? course.weightGK : 30);
+        const wGk = parseInt(course.weightGK !== undefined ? course.weightGK : '');
         const wCk = 100 - wGk;
 
         // Validation checks
@@ -169,7 +166,7 @@
                 id: 'sem-' + Date.now(),
                 name: `Học kỳ ${nextSemNum}`,
                 courses: [
-                    { id: 'c-' + Date.now() + '-1', code: '', name: '', credits: '', weightGK: 30, weightCK: 70, gradeGK: '', gradeCK: '' }
+                    { id: 'c-' + Date.now() + '-1', code: '', name: '', credits: '', weightGK: '', weightCK: '', gradeGK: '', gradeCK: '' }
                 ]
             };
             semesters.push(newSem);
@@ -224,7 +221,7 @@
                 }
                 if (target.classList.contains('col-weight-gk')) {
                     let val = parseInt(target.value);
-                    if (isNaN(val)) val = 30; // default
+                    if (isNaN(val)) val = ''; // default
                     val = Math.max(0, Math.min(100, val));
                     course.weightGK = val;
                     course.weightCK = 100 - val;
@@ -270,7 +267,7 @@
 
             if (target.classList.contains('col-weight-gk')) {
                 let val = parseInt(target.value);
-                if (isNaN(val)) val = 30;
+                if (isNaN(val)) val = '';
                 const clamped = Math.max(0, Math.min(100, val));
                 target.value = clamped;
                 course.weightGK = clamped;
@@ -319,8 +316,8 @@
                     code: '',
                     name: '',
                     credits: '',
-                    weightGK: 30,
-                    weightCK: 70,
+                    weightGK: '',
+                    weightCK: '',
                     gradeGK: '',
                     gradeCK: ''
                 };
@@ -339,7 +336,7 @@
                 
                 // If only 1 course left, make it empty instead of removing the row to keep the layout friendly, or just delete it.
                 if (semester.courses.length <= 1) {
-                    semester.courses = [{ id: 'c-' + Date.now(), code: '', name: '', credits: '', gradeGK: '', gradeCK: '' }];
+                    semester.courses = [{ id: 'c-' + Date.now(), code: '', name: '', credits: '', weightGK: '', weightCK: '', gradeGK: '', gradeCK: '' }];
                 } else {
                     semester.courses = semester.courses.filter(c => c.id !== courseId);
                 }
