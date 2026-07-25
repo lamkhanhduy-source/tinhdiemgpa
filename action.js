@@ -692,7 +692,7 @@
         gpa10Circle.style.strokeDashoffset = offset10;
         gpa10PctText.textContent = `${Math.round(isNaN(gpa10Pct) ? 0 : gpa10Pct)}%`;
     }
-    // ==========================================
+// ==========================================
 // HÀM XÓA MÔN HỌC (DÒNG TRONG BẢNG)
 // ==========================================
 function deleteCourseRow(button) {
