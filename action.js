@@ -29,6 +29,17 @@
                 { id: 'c-1-5', code: 'IN410704', name: 'Cơ sở dữ liệu', credits: 3, weightGK: '40', weightCK: '', gradeGK: '', gradeCK: '' },
                 { id: 'c-1-6', code: 'IN430703', name: 'Đại số tuyến tính', credits: 2, weightGK: '40', weightCK: '', gradeGK: '', gradeCK: '' },
             ]
+        },
+         {
+            id: 'sem-3',
+            name: 'Học kỳ 3 - Năm học 2025 - 2026',
+            courses: [
+                { id: 'c-1-1', code: 'GE4093100', name: 'Chủ nghĩa xã hội khoa học', credits: 2, weightGK: '', weightCK: '', gradeGK: '', gradeCK: '' },
+                { id: 'c-1-2', code: 'IN412104', name: 'Lập trình hướng đối tượng', credits: 3, weightGK: '', weightCK: '', gradeGK: '', gradeCK: '' },
+                { id: 'c-1-3', code: 'IN4126N04', name: 'Lý thuyết thông tin', credits: 3, weightGK: '', weightCK: '', gradeGK: '', gradeCK: '' },
+                { id: 'c-1-4', code: 'IN416810', name: 'Chuyên đề Luật CNTT, An ninh mạng, Sở hữu trí tuệ', credits: 1, weightGK: '', weightCK: '', gradeGK: '', gradeCK: '' },
+                { id: 'c-1-5', code: 'IN460102', name: 'Kiến trúc máy tính và Hệ điều hành', credits: 3, weightGK: '', weightCK: '', gradeGK: '', gradeCK: '' },
+            ]
         }
     ];
 
