@@ -611,6 +611,9 @@ header {
 }
 .w-name {
   width: auto;
+  min-width: 180px; /* Đảm bảo ô tên luôn có ít nhất 180px để hiển thị */
+  white-space: normal; /* Cho phép chữ tự xuống dòng nếu tên quá dài */
+  word-break: break-word; /* Bẻ từ nếu tên môn học là 1 chuỗi quá dài */
 }
 .w-credits {
   width: 80px;
@@ -896,5 +899,15 @@ footer a:hover {
   }
   .page-actions button {
     width: 100%;
+  }
+  .grade-table {
+    min-width: 650px; /* Giảm chiều rộng tối thiểu của bảng trên mobile để bớt cuộn ngang */
+  }
+  .table-input {
+    padding: 0.4rem 0.3rem; /* Thu nhỏ padding trong ô nhập liệu để tiết kiệm diện tích */
+    font-size: 0.85rem;
+  }
+  .w-name {
+    min-width: 160px; /* Điều chỉnh vừa vặn cho màn hình điện thoại */
   }
 }
