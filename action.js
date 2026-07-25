@@ -697,42 +697,58 @@
 // ==========================================
 function deleteCourseRow(button) {
     const row = button.closest('tr');
-    
-    // Lấy tên môn học để hiển thị rõ ràng trong thông báo
-    const courseName = row.cells[2]?.innerText || row.querySelector('input')?.value || 'môn học này';
+    if (!row) return;
 
+    // 1. Lấy tên môn học từ Input (.col-name) hoặc cột cell
+    const nameInput = row.querySelector('.col-name');
+    const courseName = nameInput && nameInput.value.trim() !== '' 
+        ? nameInput.value.trim() 
+        : 'môn học này';
+
+    // 2. Hỏi người dùng bằng SweetAlert2
     Swal.fire({
         title: 'Xóa môn học?',
         text: `Bạn có chắc chắn muốn xóa "${courseName}" khỏi bảng điểm?`,
         icon: 'warning',
         showCancelButton: true,
-        confirmColor: '#ef4444', // Màu đỏ nút Xóa
-        cancelColor: '#6b7280',  // Màu xám nút Hủy
+        confirmColor: '#ef4444',
+        cancelColor: '#6b7280',
         confirmButtonText: 'Xóa ngay',
         cancelButtonText: 'Hủy',
-        background: '#181825',   // Màu nền Dark mode đồng bộ giao diện
-        color: '#f3f4f6'         // Màu chữ
+        background: '#181825',
+        color: '#f3f4f6'
     }).then((result) => {
+        // CHỈ KHI BẤM "XÓA NGAY" MỚI TIẾN HÀNH XÓA
         if (result.isConfirmed) {
+            const courseId = row.getAttribute('data-course-id');
             const semesterCard = row.closest('.semester-card');
-            
-            // Xóa dòng khỏi DOM
+
+            // --- XÓA TRONG MẢNG DỮ LIỆU GỐC (SEMESTERS) ---
+            if (typeof semesters !== 'undefined' && Array.isArray(semesters)) {
+                semesters.forEach(sem => {
+                    if (sem.courses) {
+                        sem.courses = sem.courses.filter(c => String(c.id) !== String(courseId));
+                    }
+                });
+            }
+
+            // --- XÓA TRÊN GIAO DIỆN DOM ---
             row.remove();
-            
-            // Cập nhật lại tính toán (gọi các hàm sẵn có của bạn)
-            if (typeof recalculateSemesterUI === 'function') {
+
+            // --- CẬP NHẬT LẠI THỐNG KÊ GPA ---
+            if (typeof recalculateSemesterUI === 'function' && semesterCard) {
                 recalculateSemesterUI(semesterCard);
             }
             if (typeof updateDashboard === 'function') {
                 updateDashboard();
             }
 
-            // Thông báo ngắn dạng Toast ở góc
+            // --- THÔNG BÁO THÀNH CÔNG ---
             Swal.fire({
                 toast: true,
                 position: 'top-end',
                 icon: 'success',
-                title: 'Đã xóa môn học thành công',
+                title: 'Đã xóa môn học!',
                 showConfirmButton: false,
                 timer: 1500,
                 background: '#181825',
@@ -743,15 +759,21 @@ function deleteCourseRow(button) {
 }
 
 // ==========================================
-// HÀM XÓA TOÀN BỘ HỌC KỲ (NÚT ĐỎ CỦA CARD)
+// HÀM XÓA TOÀN BỘ HỌC KỲ
 // ==========================================
 function deleteSemester(button) {
     const semesterCard = button.closest('.semester-card');
-    const semesterTitle = semesterCard.querySelector('h3, .semester-title')?.innerText || 'học kỳ này';
+    if (!semesterCard) return;
+
+    // Lấy tên học kỳ từ input
+    const titleInput = semesterCard.querySelector('.semester-title-input');
+    const semesterTitle = titleInput && titleInput.value.trim() !== '' 
+        ? titleInput.value.trim() 
+        : 'học kỳ này';
 
     Swal.fire({
         title: 'Xóa toàn bộ học kỳ?',
-        html: `Bạn có chắc chắn muốn xóa <strong>${semesterTitle}</strong>?<br><span style="color:#f87171; font-size: 0.9em;">Mọi môn học trong kỳ này sẽ bị mất!</span>`,
+        html: `Bạn có chắc muốn xóa <strong>${escapeHtml(semesterTitle)}</strong>?<br><span style="color:#f87171; font-size: 0.85em;">Tất cả môn học trong kỳ này sẽ bị mất vĩnh viễn!</span>`,
         icon: 'error',
         showCancelButton: true,
         confirmColor: '#dc2626',
@@ -762,9 +784,20 @@ function deleteSemester(button) {
         color: '#f3f4f6'
     }).then((result) => {
         if (result.isConfirmed) {
+            const semId = semesterCard.getAttribute('data-semester-id');
+
+            // --- XÓA HỌC KỲ TRONG MẢNG DỮ LIỆU ---
+            if (typeof semesters !== 'undefined' && Array.isArray(semesters)) {
+                const index = semesters.findIndex(s => String(s.id) === String(semId));
+                if (index !== -1) {
+                    semesters.splice(index, 1);
+                }
+            }
+
+            // --- XÓA CARD TRÊN DOM ---
             semesterCard.remove();
-            
-            // Cập nhật lại tổng điểm
+
+            // --- CẬP NHẬT TỔNG THỂ ---
             if (typeof updateDashboard === 'function') {
                 updateDashboard();
             }
@@ -773,7 +806,7 @@ function deleteSemester(button) {
                 toast: true,
                 position: 'top-end',
                 icon: 'success',
-                title: 'Đã xóa học kỳ',
+                title: 'Đã xóa học kỳ!',
                 showConfirmButton: false,
                 timer: 1500,
                 background: '#181825',
