@@ -2,30 +2,30 @@
     const STORAGE_KEY = 'gpa_master_semesters_data';
     const THEME_KEY = 'gpa_master_theme';
     
-    // Initial sample data
-    const sampleData = [
-        {
-            id: 'sem-1',
-            name: 'Học kỳ 1 - Năm học 2024 - 2025',
-            courses: [
-                { id: 'c-1-1', code: 'INT1306', name: 'Nhập môn Lập trình', credits: 3, weightGK: '', weightCK: '', gradeGK: 8.5, gradeCK: 9.0 },
-                { id: 'c-1-2', code: 'PHY1100', name: 'Vật lý đại cương A1', credits: 3, weightGK: '', weightCK: '', gradeGK: 7.0, gradeCK: 8.0 },
-                { id: 'c-1-3', code: 'MAT1101', name: 'Giải tích 1', credits: 4, weightGK: '', weightCK: '', gradeGK: 8.5, gradeCK: 9.2 },
-                { id: 'c-1-4', code: 'POL1100', name: 'Triết học Mác - Lênin', credits: 3, weightGK: '', weightCK: '', gradeGK: 6.0, gradeCK: 7.5 },
-                { id: 'c-1-5', code: 'ENG1101', name: 'Anh văn bổ trợ 1', credits: 2, weightGK: '', weightCK: '', gradeGK: 8.0, gradeCK: 8.0 }
-            ]
-        },
-        {
-            id: 'sem-2',
-            name: 'Học kỳ 2 - Năm học 2024 - 2025',
-            courses: [
-                { id: 'c-2-1', code: 'MAT1102', name: 'Đại số tuyến tính', credits: 3, weightGK: '', weightCK: '', gradeGK: 9.0, gradeCK: 8.5 },
-                { id: 'c-2-2', code: 'INT1307', name: 'Cấu trúc dữ liệu & Giải thuật', credits: 4, weightGK: '', weightCK: '', gradeGK: 8.0, gradeCK: 9.0 },
-                { id: 'c-2-3', code: 'INT1308', name: 'Cơ sở dữ liệu', credits: 3, weightGK: '', weightCK: '', gradeGK: 7.5, gradeCK: 8.0 },
-                { id: 'c-2-4', code: 'POL1101', name: 'Đường lối cách mạng ĐCSVN', credits: 3, weightGK: '', weightCK: '', gradeGK: 8.0, gradeCK: 7.0 }
-            ]
-        }
-    ];
+    // // Initial sample data
+    // const sampleData = [
+    //     {
+    //         id: 'sem-1',
+    //         name: 'Học kỳ 1 - Năm học 2024 - 2025',
+    //         courses: [
+    //             { id: 'c-1-1', code: 'INT1306', name: 'Nhập môn Lập trình', credits: 3, weightGK: '', weightCK: '', gradeGK: 8.5, gradeCK: 9.0 },
+    //             { id: 'c-1-2', code: 'PHY1100', name: 'Vật lý đại cương A1', credits: 3, weightGK: '', weightCK: '', gradeGK: 7.0, gradeCK: 8.0 },
+    //             { id: 'c-1-3', code: 'MAT1101', name: 'Giải tích 1', credits: 4, weightGK: '', weightCK: '', gradeGK: 8.5, gradeCK: 9.2 },
+    //             { id: 'c-1-4', code: 'POL1100', name: 'Triết học Mác - Lênin', credits: 3, weightGK: '', weightCK: '', gradeGK: 6.0, gradeCK: 7.5 },
+    //             { id: 'c-1-5', code: 'ENG1101', name: 'Anh văn bổ trợ 1', credits: 2, weightGK: '', weightCK: '', gradeGK: 8.0, gradeCK: 8.0 }
+    //         ]
+    //     },
+    //     {
+    //         id: 'sem-2',
+    //         name: 'Học kỳ 2 - Năm học 2024 - 2025',
+    //         courses: [
+    //             { id: 'c-2-1', code: 'MAT1102', name: 'Đại số tuyến tính', credits: 3, weightGK: '', weightCK: '', gradeGK: 9.0, gradeCK: 8.5 },
+    //             { id: 'c-2-2', code: 'INT1307', name: 'Cấu trúc dữ liệu & Giải thuật', credits: 4, weightGK: '', weightCK: '', gradeGK: 8.0, gradeCK: 9.0 },
+    //             { id: 'c-2-3', code: 'INT1308', name: 'Cơ sở dữ liệu', credits: 3, weightGK: '', weightCK: '', gradeGK: 7.5, gradeCK: 8.0 },
+    //             { id: 'c-2-4', code: 'POL1101', name: 'Đường lối cách mạng ĐCSVN', credits: 3, weightGK: '', weightCK: '', gradeGK: 8.0, gradeCK: 7.0 }
+    //         ]
+    //     }
+    // ];
 
     let semesters = [];
 
