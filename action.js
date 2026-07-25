@@ -8,13 +8,13 @@
             id: 'sem-1',
             name: 'Học kỳ 1 - Năm học 2025 - 2026',
             courses: [
-                { id: 'c-1-1', code: 'GE403987', name: 'Pháp luật Việt Nam đại cương', credits: 2, weightGK: '', weightCK: '', gradeGK: '', gradeCK: '' },
-                { id: 'c-1-2', code: 'GE409181', name: 'Triết học Mác - Lênin', credits: 3, weightGK: '', weightCK: '', gradeGK: '', gradeCK: '' },
-                { id: 'c-1-3', code: 'IN4012N02', name: 'Lập trình căn bản', credits: 3, weightGK: '', weightCK: '', gradeGK: '', gradeCK: '' },
-                { id: 'c-1-4', code: 'IN401702', name: 'Toán rời rạc', credits: 3, weightGK: '', weightCK: '', gradeGK: '', gradeCK: '' },
-                { id: 'c-1-5', code: 'IN421902', name: 'Xác suất thống kê cho tin học', credits: 2, weightGK: '', weightCK: '', gradeGK: '', gradeCK: '' },
-                { id: 'c-1-6', code: 'IN450606', name: 'Thiết kế đồ họa', credits: 2, weightGK: '', weightCK: '', gradeGK: '', gradeCK: '' },
-                { id: 'c-1-7', code: 'IN453002', name: 'Nhập môn ngành CNTT', credits: 1, weightGK: '', weightCK: '', gradeGK: '', gradeCK: '' }
+                { id: 'c-1-1', code: 'GE403987', name: 'Pháp luật Việt Nam đại cương', credits: 2, weightGK: '50', weightCK: '', gradeGK: '', gradeCK: '' },
+                { id: 'c-1-2', code: 'GE409181', name: 'Triết học Mác - Lênin', credits: 3, weightGK: '50', weightCK: '', gradeGK: '', gradeCK: '' },
+                { id: 'c-1-3', code: 'IN4012N02', name: 'Lập trình căn bản', credits: 3, weightGK: '50', weightCK: '', gradeGK: '', gradeCK: '' },
+                { id: 'c-1-4', code: 'IN401702', name: 'Toán rời rạc', credits: 3, weightGK: '50', weightCK: '', gradeGK: '', gradeCK: '' },
+                { id: 'c-1-5', code: 'IN421902', name: 'Xác suất thống kê cho tin học', credits: 2, weightGK: '40', weightCK: '', gradeGK: '', gradeCK: '' },
+                { id: 'c-1-6', code: 'IN450606', name: 'Thiết kế đồ họa', credits: 2, weightGK: '50', weightCK: '', gradeGK: '', gradeCK: '' },
+                { id: 'c-1-7', code: 'IN453002', name: 'Nhập môn ngành CNTT', credits: 1, weightGK: '50', weightCK: '', gradeGK: '', gradeCK: '' }
 
             ]
         },
@@ -25,7 +25,7 @@
                 { id: 'c-1-1', code: 'AI445041', name: 'Nhập môn Công nghệ số và ứng dụng AI', credits: 2, weightGK: '50', weightCK: '', gradeGK: '', gradeCK: '' },
                 { id: 'c-1-2', code: 'GE409233', name: 'Kinh tế chính trị Mác - Lênin', credits: 2, weightGK: '50', weightCK: '', gradeGK: '', gradeCK: '' },
                 { id: 'c-1-3', code: 'IN400204', name: 'Cấu trúc dữ liệu và Giải thuật', credits: 3, weightGK: '50', weightCK: '', gradeGK: '', gradeCK: '' },
-                { id: 'c-1-4', code: 'IN4019N04', name: 'Lý thuyết đồ thị', credits: 2, weightGK: '', weightCK: '50', gradeGK: '', gradeCK: '' },
+                { id: 'c-1-4', code: 'IN4019N04', name: 'Lý thuyết đồ thị', credits: 2, weightGK: '50', weightCK: '', gradeGK: '', gradeCK: '' },
                 { id: 'c-1-5', code: 'IN410704', name: 'Cơ sở dữ liệu', credits: 3, weightGK: '40', weightCK: '', gradeGK: '', gradeCK: '' },
                 { id: 'c-1-6', code: 'IN430703', name: 'Đại số tuyến tính', credits: 2, weightGK: '40', weightCK: '', gradeGK: '', gradeCK: '' },
             ]
