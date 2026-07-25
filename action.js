@@ -344,33 +344,33 @@
                 return;
             }
 
-            // Action: Delete Course
-            if (target.classList.contains('btn-delete-course')) {
-                const row = target.closest('tr');
-                if (!row) return;
-                const courseId = row.dataset.courseId;
+            // // Action: Delete Course
+            // if (target.classList.contains('btn-delete-course')) {
+            //     const row = target.closest('tr');
+            //     if (!row) return;
+            //     const courseId = row.dataset.courseId;
                 
-                // If only 1 course left, make it empty instead of removing the row to keep the layout friendly, or just delete it.
-                if (semester.courses.length <= 1) {
-                    semester.courses = [{ id: 'c-' + Date.now(), code: '', name: '', credits: '', weightGK: '', weightCK: '', gradeGK: '', gradeCK: '' }];
-                } else {
-                    semester.courses = semester.courses.filter(c => c.id !== courseId);
-                }
+            //     // If only 1 course left, make it empty instead of removing the row to keep the layout friendly, or just delete it.
+            //     if (semester.courses.length <= 1) {
+            //         semester.courses = [{ id: 'c-' + Date.now(), code: '', name: '', credits: '', weightGK: '', weightCK: '', gradeGK: '', gradeCK: '' }];
+            //     } else {
+            //         semester.courses = semester.courses.filter(c => c.id !== courseId);
+            //     }
                 
-                saveData();
-                renderSemesterCard(semesterCard, semester);
-                updateDashboard();
-                return;
-            }
+            //     saveData();
+            //     renderSemesterCard(semesterCard, semester);
+            //     updateDashboard();
+            //     return;
+            // }
 
-            // Action: Delete Semester
-            if (target.classList.contains('btn-delete-semester')) {
-                if (confirm(`Bạn có chắc chắn muốn xóa "${semester.name || 'Học kỳ này'}" không?`)) {
-                    semesters.splice(semesterIndex, 1);
-                    saveData();
-                    render();
-                }
-            }
+            // // Action: Delete Semester
+            // if (target.classList.contains('btn-delete-semester')) {
+            //     if (confirm(`Bạn có chắc chắn muốn xóa "${semester.name || 'Học kỳ này'}" không?`)) {
+            //         semesters.splice(semesterIndex, 1);
+            //         saveData();
+            //         render();
+            //     }
+            // }
         });
     }
 
@@ -699,13 +699,18 @@ function deleteCourseRow(button) {
     const row = button.closest('tr');
     if (!row) return;
 
-    // 1. Lấy tên môn học từ Input (.col-name) hoặc cột cell
+    const semesterCard = row.closest('.semester-card');
+    if (!semesterCard) return;
+
+    const semId = semesterCard.id;
+    const courseId = row.dataset.courseId;
+
     const nameInput = row.querySelector('.col-name');
     const courseName = nameInput && nameInput.value.trim() !== '' 
         ? nameInput.value.trim() 
         : 'môn học này';
 
-    // 2. Hỏi người dùng bằng SweetAlert2
+    // Hỏi xác nhận qua SweetAlert2
     Swal.fire({
         title: 'Xóa môn học?',
         text: `Bạn có chắc chắn muốn xóa "${courseName}" khỏi bảng điểm?`,
@@ -718,42 +723,34 @@ function deleteCourseRow(button) {
         background: '#181825',
         color: '#f3f4f6'
     }).then((result) => {
-        // CHỈ KHI BẤM "XÓA NGAY" MỚI TIẾN HÀNH XÓA
+        // CHỈ XÓA KHI NGƯỜI DÙNG BẤM "XÓA NGAY"
         if (result.isConfirmed) {
-            const courseId = row.getAttribute('data-course-id');
-            const semesterCard = row.closest('.semester-card');
+            const semester = semesters.find(s => s.id === semId);
+            if (semester) {
+                // Nếu chỉ còn 1 môn, xóa xong reset về dòng trống cho dễ nhập
+                if (semester.courses.length <= 1) {
+                    semester.courses = [{ id: 'c-' + Date.now(), code: '', name: '', credits: '', weightGK: '', weightCK: '', gradeGK: '', gradeCK: '' }];
+                } else {
+                    semester.courses = semester.courses.filter(c => c.id !== courseId);
+                }
 
-            // --- XÓA TRONG MẢNG DỮ LIỆU GỐC (SEMESTERS) ---
-            if (typeof semesters !== 'undefined' && Array.isArray(semesters)) {
-                semesters.forEach(sem => {
-                    if (sem.courses) {
-                        sem.courses = sem.courses.filter(c => String(c.id) !== String(courseId));
-                    }
+                // Lưu dữ liệu & vẽ lại UI
+                saveData();
+                renderSemesterCard(semesterCard, semester);
+                updateDashboard();
+
+                // Thông báo Toast
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Đã xóa môn học!',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    background: '#181825',
+                    color: '#fff'
                 });
             }
-
-            // --- XÓA TRÊN GIAO DIỆN DOM ---
-            row.remove();
-
-            // --- CẬP NHẬT LẠI THỐNG KÊ GPA ---
-            if (typeof recalculateSemesterUI === 'function' && semesterCard) {
-                recalculateSemesterUI(semesterCard);
-            }
-            if (typeof updateDashboard === 'function') {
-                updateDashboard();
-            }
-
-            // --- THÔNG BÁO THÀNH CÔNG ---
-            Swal.fire({
-                toast: true,
-                position: 'top-end',
-                icon: 'success',
-                title: 'Đã xóa môn học!',
-                showConfirmButton: false,
-                timer: 1500,
-                background: '#181825',
-                color: '#fff'
-            });
         }
     });
 }
@@ -765,42 +762,29 @@ function deleteSemester(button) {
     const semesterCard = button.closest('.semester-card');
     if (!semesterCard) return;
 
-    // Lấy tên học kỳ từ input
-    const titleInput = semesterCard.querySelector('.semester-title-input');
-    const semesterTitle = titleInput && titleInput.value.trim() !== '' 
-        ? titleInput.value.trim() 
-        : 'học kỳ này';
+    const semId = semesterCard.id;
+    const semesterIndex = semesters.findIndex(s => s.id === semId);
+    if (semesterIndex === -1) return;
+
+    const semester = semesters[semesterIndex];
+    const semName = semester.name || 'Học kỳ này';
 
     Swal.fire({
-        title: 'Xóa toàn bộ học kỳ?',
-        html: `Bạn có chắc muốn xóa <strong>${escapeHtml(semesterTitle)}</strong>?<br><span style="color:#f87171; font-size: 0.85em;">Tất cả môn học trong kỳ này sẽ bị mất vĩnh viễn!</span>`,
-        icon: 'error',
+        title: 'Xóa học kỳ?',
+        html: `Bạn có chắc chắn muốn xóa <strong>${escapeHtml(semName)}</strong>?<br><small style="color:#f87171">Toàn bộ dữ liệu môn học trong kỳ này sẽ bị mất.</small>`,
+        icon: 'warning',
         showCancelButton: true,
-        confirmColor: '#dc2626',
+        confirmColor: '#ef4444',
         cancelColor: '#6b7280',
-        confirmButtonText: 'Đồng ý xóa',
-        cancelButtonText: 'Hủy bỏ',
+        confirmButtonText: 'Xóa ngay',
+        cancelButtonText: 'Hủy',
         background: '#181825',
         color: '#f3f4f6'
     }).then((result) => {
         if (result.isConfirmed) {
-            const semId = semesterCard.getAttribute('data-semester-id');
-
-            // --- XÓA HỌC KỲ TRONG MẢNG DỮ LIỆU ---
-            if (typeof semesters !== 'undefined' && Array.isArray(semesters)) {
-                const index = semesters.findIndex(s => String(s.id) === String(semId));
-                if (index !== -1) {
-                    semesters.splice(index, 1);
-                }
-            }
-
-            // --- XÓA CARD TRÊN DOM ---
-            semesterCard.remove();
-
-            // --- CẬP NHẬT TỔNG THỂ ---
-            if (typeof updateDashboard === 'function') {
-                updateDashboard();
-            }
+            semesters.splice(semesterIndex, 1);
+            saveData();
+            render();
 
             Swal.fire({
                 toast: true,
