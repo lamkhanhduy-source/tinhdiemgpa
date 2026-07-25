@@ -193,12 +193,45 @@
         });
 
         // Reset data button
+        // Dùng SweetAlert2 sang xịn mịn
         document.getElementById('btnResetData').addEventListener('click', () => {
-            if (confirm('Bạn có chắc chắn muốn khôi phục dữ liệu mẫu không? Toàn bộ dữ liệu hiện tại sẽ bị ghi đè.')) {
-                semesters = JSON.parse(JSON.stringify(sampleData));
-                saveData();
-                render();
-            }
+            Swal.fire({
+                title: 'Khôi phục dữ liệu mẫu?',
+                html: `Tất cả dữ liệu điểm hiện tại sẽ bị <strong>ghi đè</strong> bằng dữ liệu mẫu ban đầu.<br><span style="color: #f87171; font-size: 0.85rem;">Hành động này không thể hoàn tác!</span>`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmColor: '#6366f1', // Màu tím/indigo hiện đại
+                cancelColor: '#4b5563',
+                confirmButtonText: 'Đồng ý khôi phục',
+                cancelButtonText: 'Hủy bỏ',
+                background: '#181825',  // Khớp tông màu Dark Mode của ứng dụng
+                color: '#f3f4f6',
+                borderRadius: '16px',
+                customClass: {
+                    popup: 'swal2-custom-popup',
+                    confirmButton: 'swal2-custom-btn-confirm',
+                    cancelButton: 'swal2-custom-btn-cancel'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Khôi phục dữ liệu
+                    semesters = JSON.parse(JSON.stringify(sampleData));
+                    saveData();
+                    render();
+
+                    // Thông báo thành công kiểu Toast ở góc trên
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Đã khôi phục dữ liệu mẫu!',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        background: '#181825',
+                        color: '#fff'
+                    });
+                }
+            });
         });
 
         // Event delegation for inputs and actions inside semesters area
