@@ -668,7 +668,7 @@
                 standingBadge.className = 'standing-badge yeu';
             } else {
                 standingBadge.textContent = 'Kém';
-                standingBadge.className = 'standing-badge';
+                standingBadge.className = 'standing-badge kem';
                 standingBadge.style.backgroundColor = 'var(--danger-glow)';
                 standingBadge.style.color = 'var(--danger)';
             }
