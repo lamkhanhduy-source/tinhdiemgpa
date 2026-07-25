@@ -18,6 +18,18 @@
 
             ]
         },
+        {
+            id: 'sem-2',
+            name: 'Học kỳ 2 - Năm học 2025 - 2026',
+            courses: [
+                { id: 'c-1-1', code: 'AI445041', name: 'Nhập môn Công nghệ số và ứng dụng AI', credits: 2, weightGK: '50', weightCK: '', gradeGK: '', gradeCK: '' },
+                { id: 'c-1-2', code: 'GE409233', name: 'Kinh tế chính trị Mác - Lênin', credits: 2, weightGK: '50', weightCK: '', gradeGK: '', gradeCK: '' },
+                { id: 'c-1-3', code: 'IN400204', name: 'Cấu trúc dữ liệu và Giải thuật', credits: 3, weightGK: '50', weightCK: '', gradeGK: '', gradeCK: '' },
+                { id: 'c-1-4', code: 'IN4019N04', name: 'Lý thuyết đồ thị', credits: 2, weightGK: '', weightCK: '50', gradeGK: '', gradeCK: '' },
+                { id: 'c-1-5', code: 'IN410704', name: 'Cơ sở dữ liệu', credits: 3, weightGK: '', weightCK: '40', gradeGK: '', gradeCK: '' },
+                { id: 'c-1-6', code: 'IN430703', name: 'Đại số tuyến tính', credits: 2, weightGK: '', weightCK: '40', gradeGK: '', gradeCK: '' },
+            ]
+        }
     ];
 
     let semesters = [];
