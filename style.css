@@ -362,7 +362,14 @@ header {
   background: var(--danger-glow);
   color: var(--danger);
 }
-
+.standing-badge.yeu {
+  background-color: #fff3e0;
+  color: #e65100;
+}
+.standing-badge.kem {
+  background-color: #ffebee;
+  color: #c62828;
+}
 /* Semester Management Area */
 .semester-area {
   display: flex;
