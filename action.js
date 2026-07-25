@@ -665,7 +665,7 @@
                 standingBadge.className = 'standing-badge trungbinh';
             }else if (cumGPA4 >= 1.00) {
                 standingBadge.textContent = 'Yếu';
-                standingBadge.className = 'standing-badge trungbinh';
+                standingBadge.className = 'standing-badge yeu';
             } else {
                 standingBadge.textContent = 'Kém';
                 standingBadge.className = 'standing-badge';
