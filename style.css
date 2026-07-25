@@ -608,6 +608,9 @@ header {
 }
 .w-code {
   width: 120px;
+  min-width: 180px; /* Đảm bảo ô tên luôn có ít nhất 180px để hiển thị */
+  white-space: normal; /* Cho phép chữ tự xuống dòng nếu tên quá dài */
+  word-break: break-word; /* Bẻ từ nếu tên môn học là 1 chuỗi quá dài */
 }
 .w-name {
   width: auto;
