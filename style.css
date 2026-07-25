@@ -921,3 +921,20 @@ footer a:hover {
     min-width: 160px; /* Điều chỉnh vừa vặn cho màn hình điện thoại */
   }
 }
+/* Bo tròn góc và đổ bóng mượt cho SweetAlert2 */
+.swal2-popup {
+    border: 1px solid var(--card-border, #2e2e3e) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Tùy chỉnh font chữ cho tiêu đề popup */
+.swal2-title {
+    font-size: 1.25rem !important;
+    font-weight: 600 !important;
+}
+
+.swal2-html-container {
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+}
