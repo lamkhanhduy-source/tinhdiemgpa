@@ -539,7 +539,7 @@
                     <td class="w-result cell-total4">${total4Str}</td>
                     <td class="w-result cell-letter">${letterStr}</td>
                     <td class="w-action">
-                        <button class="btn-delete-course" title="Xóa môn này">
+                        <button class="btn-delete-course" title="Xóa môn này" onclick="deleteCourseRow(this)">
                             <!-- SVG Trash Icon -->
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
                         </button>
@@ -558,7 +558,7 @@
                     <input type="text" class="semester-title-input" value="${escapeHtml(semester.name)}" placeholder="Nhập tên học kỳ..." />
                 </div>
                 
-                <button class="btn-delete-semester" title="Xóa học kỳ này">
+                <button class="btn-delete-semester" title="Xóa học kỳ này" onclick="deleteSemester(this)">
                     <!-- SVG Trash-2 Icon -->
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
                 </button>
@@ -692,7 +692,96 @@
         gpa10Circle.style.strokeDashoffset = offset10;
         gpa10PctText.textContent = `${Math.round(isNaN(gpa10Pct) ? 0 : gpa10Pct)}%`;
     }
+    // ==========================================
+// HÀM XÓA MÔN HỌC (DÒNG TRONG BẢNG)
+// ==========================================
+function deleteCourseRow(button) {
+    const row = button.closest('tr');
+    
+    // Lấy tên môn học để hiển thị rõ ràng trong thông báo
+    const courseName = row.cells[2]?.innerText || row.querySelector('input')?.value || 'môn học này';
 
+    Swal.fire({
+        title: 'Xóa môn học?',
+        text: `Bạn có chắc chắn muốn xóa "${courseName}" khỏi bảng điểm?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmColor: '#ef4444', // Màu đỏ nút Xóa
+        cancelColor: '#6b7280',  // Màu xám nút Hủy
+        confirmButtonText: 'Xóa ngay',
+        cancelButtonText: 'Hủy',
+        background: '#181825',   // Màu nền Dark mode đồng bộ giao diện
+        color: '#f3f4f6'         // Màu chữ
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const semesterCard = row.closest('.semester-card');
+            
+            // Xóa dòng khỏi DOM
+            row.remove();
+            
+            // Cập nhật lại tính toán (gọi các hàm sẵn có của bạn)
+            if (typeof recalculateSemesterUI === 'function') {
+                recalculateSemesterUI(semesterCard);
+            }
+            if (typeof updateDashboard === 'function') {
+                updateDashboard();
+            }
+
+            // Thông báo ngắn dạng Toast ở góc
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'success',
+                title: 'Đã xóa môn học thành công',
+                showConfirmButton: false,
+                timer: 1500,
+                background: '#181825',
+                color: '#fff'
+            });
+        }
+    });
+}
+
+// ==========================================
+// HÀM XÓA TOÀN BỘ HỌC KỲ (NÚT ĐỎ CỦA CARD)
+// ==========================================
+function deleteSemester(button) {
+    const semesterCard = button.closest('.semester-card');
+    const semesterTitle = semesterCard.querySelector('h3, .semester-title')?.innerText || 'học kỳ này';
+
+    Swal.fire({
+        title: 'Xóa toàn bộ học kỳ?',
+        html: `Bạn có chắc chắn muốn xóa <strong>${semesterTitle}</strong>?<br><span style="color:#f87171; font-size: 0.9em;">Mọi môn học trong kỳ này sẽ bị mất!</span>`,
+        icon: 'error',
+        showCancelButton: true,
+        confirmColor: '#dc2626',
+        cancelColor: '#6b7280',
+        confirmButtonText: 'Đồng ý xóa',
+        cancelButtonText: 'Hủy bỏ',
+        background: '#181825',
+        color: '#f3f4f6'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            semesterCard.remove();
+            
+            // Cập nhật lại tổng điểm
+            if (typeof updateDashboard === 'function') {
+                updateDashboard();
+            }
+
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'success',
+                title: 'Đã xóa học kỳ',
+                showConfirmButton: false,
+                timer: 1500,
+                background: '#181825',
+                color: '#fff'
+            });
+        }
+    });
+}
     // Helper: Escaping HTML values
     function escapeHtml(text) {
         if (!text) return '';
